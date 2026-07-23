@@ -10,8 +10,8 @@ import servicemanager
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.config import Config
-from src.zipper import detectar_zips_basura, mover_a_trash, _get_file_size_str, _get_zip_size
-from src.notifications import notificar
+from src.zipper import detect_garbage_zips, move_to_trash, _get_file_size_str, _get_zip_size
+from src.notifications import notify
 
 logging.basicConfig(
     level=logging.INFO,
@@ -48,8 +48,8 @@ class ZIPTrashService(win32serviceutil.ServiceFramework):
         self._run()
 
     def _clean_old_zips(self):
-        from src.zipper import limpiar_trash
-        eliminated, remaining = limpiar_trash(self.config)
+        from src.zipper import clean_trash
+        eliminated, remaining = clean_trash(self.config)
         if eliminated:
             logger.info(f"Cleaned {len(eliminated)} old ZIPs from trash")
 
@@ -77,9 +77,12 @@ class ZIPTrashService(win32serviceutil.ServiceFramework):
             if not os.path.isdir(folder):
                 continue
 
-            garbage_zips = detectar_zips_basura(folder)
+            garbage_zips = detect_garbage_zips(folder)
             for zip_path in garbage_zips:
-                trash_path, error = mover_a_trash(zip_path, trash_dir)
+                if self.config.is_zip_ignored(zip_path.name, folder):
+                    continue
+
+                trash_path, error = move_to_trash(zip_path, trash_dir)
                 if error:
                     logger.warning(f"Could not move {zip_path.name}: {error}")
                     continue
@@ -93,7 +96,7 @@ class ZIPTrashService(win32serviceutil.ServiceFramework):
                     name=zip_path.name,
                 )
 
-                notificar("ZIP movido (servicio)", f"{zip_path.name} ({size_str})")
+                notify("ZIP moved (service)", f"{zip_path.name} ({size_str})")
                 logger.info(f"Moved ZIP: {zip_path.name} ({size_str})")
 
 

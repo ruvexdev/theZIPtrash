@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (
 )
 
 from src.config import Config
-from src.zipper import restaurar_zip, eliminar_permanente
+from src.zipper import restore_zip, delete_permanently
 
 
 class MainWindow(QMainWindow):
@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
         title.setObjectName("titleLabel")
         left.addWidget(title)
 
-        subtitle = QLabel("ZIPs basura detectados y gestionados automaticamente")
+        subtitle = QLabel("Garbage ZIPs detected and managed automatically")
         subtitle.setObjectName("subtitleLabel")
         left.addWidget(subtitle)
         layout.addLayout(left)
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         self.count_label.setAlignment(Qt.AlignCenter)
         right.addWidget(self.count_label)
 
-        count_sub = QLabel("en papelera")
+        count_sub = QLabel("in trash")
         count_sub.setObjectName("countSubLabel")
         count_sub.setAlignment(Qt.AlignCenter)
         right.addWidget(count_sub)
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow):
     def _build_table(self):
         table = QTableWidget()
         table.setColumnCount(5)
-        table.setHorizontalHeaderLabels(["Nombre", "Tamano", "Fecha", "Original", ""])
+        table.setHorizontalHeaderLabels(["Name", "Size", "Date", "Original", ""])
         table.setAlternatingRowColors(True)
         table.setSelectionBehavior(QAbstractItemView.SelectRows)
         table.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -112,19 +112,19 @@ class MainWindow(QMainWindow):
         layout = QHBoxLayout(frame)
         layout.setContentsMargins(16, 10, 16, 10)
 
-        self.status_label = QLabel("Monitoreo: Activo")
+        self.status_label = QLabel("Monitoring: Active")
         self.status_label.setObjectName("statusLabel")
         layout.addWidget(self.status_label)
 
         layout.addStretch()
 
-        btn_settings = QPushButton("Configuracion")
+        btn_settings = QPushButton("Settings")
         btn_settings.setObjectName("settingsBtn")
         btn_settings.setFixedWidth(120)
         btn_settings.clicked.connect(self._open_settings)
         layout.addWidget(btn_settings)
 
-        btn_delete_all = QPushButton("Eliminar todo")
+        btn_delete_all = QPushButton("Delete all")
         btn_delete_all.setObjectName("deleteBtn")
         btn_delete_all.setFixedWidth(120)
         btn_delete_all.clicked.connect(self._delete_all)
@@ -167,7 +167,7 @@ class MainWindow(QMainWindow):
             btn_layout.setContentsMargins(4, 2, 4, 2)
             btn_layout.setSpacing(4)
 
-            btn_restore = QPushButton("Restaurar")
+            btn_restore = QPushButton("Restore")
             btn_restore.setObjectName("restoreBtn")
             btn_restore.setFixedHeight(28)
             btn_restore.setCursor(Qt.PointingHandCursor)
@@ -186,66 +186,65 @@ class MainWindow(QMainWindow):
 
     def update_status(self, status):
         if status == "active":
-            self.status_label.setText("Monitoreo: Activo")
-            self.status_label.setObjectName("statusLabel")
+            self.status_label.setText("Monitoring: Active")
             self.status_label.setStyleSheet(
                 "background-color: #1b5e20; color: #81c784; padding: 4px 12px; border-radius: 10px; font-size: 12px;"
             )
         elif status == "paused":
-            self.status_label.setText("Monitoreo: Pausado")
+            self.status_label.setText("Monitoring: Paused")
             self.status_label.setStyleSheet(
                 "background-color: #e65100; color: #ffb74d; padding: 4px 12px; border-radius: 10px; font-size: 12px;"
             )
         elif status == "stopped":
-            self.status_label.setText("Monitoreo: Detenido")
+            self.status_label.setText("Monitoring: Stopped")
             self.status_label.setStyleSheet(
                 "background-color: #c62828; color: #ef9a9a; padding: 4px 12px; border-radius: 10px; font-size: 12px;"
             )
 
     def _restore(self, entry):
-        success, error = restaurar_zip(entry, self.config)
+        success, error = restore_zip(entry, self.config)
         if success:
             self.refresh_table()
-            self._show_info("Restaurado", f"'{entry['name']}' restaurado correctamente.")
+            self._show_info("Restored", f"'{entry['name']}' has been restored successfully.")
         else:
-            self._show_error("Error", f"No se pudo restaurar: {error}")
+            self._show_error("Error", f"Could not restore: {error}")
 
     def _delete_single(self, entry):
         reply = QMessageBox.question(
-            self, "Eliminar permanentemente",
-            f"Eliminar '{entry['name']}' permanentemente?\nEsta accion no se puede deshacer.",
+            self, "Delete permanently",
+            f"Delete '{entry['name']}' permanently?\nThis action cannot be undone.",
             QMessageBox.Yes | QMessageBox.No, QMessageBox.No,
         )
         if reply == QMessageBox.Yes:
-            success, error = eliminar_permanente(entry["trash_path"])
+            success, error = delete_permanently(entry["trash_path"])
             if success:
                 self.config.remove_deleted_zip_record(entry["trash_path"])
                 self.refresh_table()
             else:
-                self._show_error("Error", f"No se pudo eliminar: {error}")
+                self._show_error("Error", f"Could not delete: {error}")
 
     def _delete_all(self):
         deleted = self.config.deleted_zips
         if not deleted:
-            self._show_info("Vacio", "No hay ZIPs en la papelera.")
+            self._show_info("Empty", "There are no ZIPs in the trash.")
             return
 
         reply = QMessageBox.question(
-            self, "Eliminar todo",
-            f"Eliminar {len(deleted)} ZIP(s) permanentemente?\nEsta accion no se puede deshacer.",
+            self, "Delete all",
+            f"Delete {len(deleted)} ZIP(s) permanently?\nThis action cannot be undone.",
             QMessageBox.Yes | QMessageBox.No, QMessageBox.No,
         )
         if reply == QMessageBox.Yes:
             errors = []
             for entry in list(deleted):
-                success, error = eliminar_permanente(entry["trash_path"])
+                success, error = delete_permanently(entry["trash_path"])
                 if success:
                     self.config.remove_deleted_zip_record(entry["trash_path"])
                 else:
                     errors.append(f"{entry['name']}: {error}")
             self.refresh_table()
             if errors:
-                self._show_error("Errores", "\n".join(errors))
+                self._show_error("Errors", "\n".join(errors))
 
     def _open_settings(self):
         from src.ui.settings_dialog import SettingsDialog

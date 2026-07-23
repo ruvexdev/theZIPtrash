@@ -4,9 +4,8 @@ from pathlib import Path
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from src.config import Config
-from src.notifications import notificar
-from src.zipper import detectar_zips_basura, mover_a_trash, _get_file_size_str, _get_zip_size
+from src.notifications import notify
+from src.zipper import detect_garbage_zips, move_to_trash, _get_file_size_str, _get_zip_size
 
 logger = logging.getLogger(__name__)
 
@@ -54,13 +53,13 @@ class WatcherThread(QThread):
             if not folder.exists() or not folder.is_dir():
                 continue
 
-            garbage_zips = detectar_zips_basura(folder)
+            garbage_zips = detect_garbage_zips(folder)
 
             for zip_path in garbage_zips:
                 if self.config.is_zip_ignored(zip_path.name, folder):
                     continue
 
-                trash_path, error = mover_a_trash(zip_path, trash_dir)
+                trash_path, error = move_to_trash(zip_path, trash_dir)
 
                 if error:
                     logger.warning(f"Could not move {zip_path.name}: {error}")
@@ -76,8 +75,8 @@ class WatcherThread(QThread):
                 )
                 entry["size_str"] = size_str
 
-                notificar(
-                    "ZIP movido a la papelera",
+                notify(
+                    "ZIP moved to trash",
                     f"{zip_path.name} ({size_str})\nOriginal: {folder}",
                 )
 

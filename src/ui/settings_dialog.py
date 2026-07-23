@@ -16,7 +16,7 @@ class SettingsDialog(QDialog):
         super().__init__(parent)
         self.config = config
         self.watcher = watcher
-        self.setWindowTitle("Configuracion - theZIPtrash")
+        self.setWindowTitle("Settings - theZIPtrash")
         self.setMinimumSize(550, 480)
         self.setModal(True)
         self._build_ui()
@@ -27,7 +27,7 @@ class SettingsDialog(QDialog):
         layout.setContentsMargins(24, 24, 24, 24)
         layout.setSpacing(16)
 
-        title = QLabel("Configuracion")
+        title = QLabel("Settings")
         title.setObjectName("titleLabel")
         layout.addWidget(title)
 
@@ -42,13 +42,13 @@ class SettingsDialog(QDialog):
         btn_layout = QHBoxLayout()
         btn_layout.addStretch()
 
-        btn_cancel = QPushButton("Cancelar")
+        btn_cancel = QPushButton("Cancel")
         btn_cancel.setObjectName("settingsBtn")
         btn_cancel.setFixedWidth(100)
         btn_cancel.clicked.connect(self.reject)
         btn_layout.addWidget(btn_cancel)
 
-        btn_save = QPushButton("Guardar")
+        btn_save = QPushButton("Save")
         btn_save.setFixedWidth(100)
         btn_save.clicked.connect(self._save)
         btn_layout.addWidget(btn_save)
@@ -56,7 +56,7 @@ class SettingsDialog(QDialog):
         layout.addLayout(btn_layout)
 
     def _build_folders_section(self):
-        group = QGroupBox("Carpetas monitoreadas")
+        group = QGroupBox("Monitored folders")
         group.setStyleSheet("""
             QGroupBox {
                 font-size: 13px;
@@ -80,13 +80,13 @@ class SettingsDialog(QDialog):
         layout.addWidget(self.folder_list)
 
         btn_row = QHBoxLayout()
-        btn_add = QPushButton("+ Agregar carpeta")
+        btn_add = QPushButton("+ Add folder")
         btn_add.setObjectName("restoreBtn")
         btn_add.setCursor(Qt.PointingHandCursor)
         btn_add.clicked.connect(self._add_folder)
         btn_row.addWidget(btn_add)
 
-        btn_remove = QPushButton("- Quitar seleccionada")
+        btn_remove = QPushButton("- Remove selected")
         btn_remove.setObjectName("deleteBtn")
         btn_remove.setCursor(Qt.PointingHandCursor)
         btn_remove.clicked.connect(self._remove_folder)
@@ -98,7 +98,7 @@ class SettingsDialog(QDialog):
         return group
 
     def _build_options_section(self):
-        group = QGroupBox("Opciones")
+        group = QGroupBox("Options")
         group.setStyleSheet("""
             QGroupBox {
                 font-size: 13px;
@@ -118,23 +118,23 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout(group)
 
         interval_row = QHBoxLayout()
-        interval_label = QLabel("Escanear cada:")
+        interval_label = QLabel("Scan every:")
         interval_row.addWidget(interval_label)
 
         self.interval_combo = QComboBox()
-        self.interval_combo.addItems(["5 segundos", "10 segundos", "15 segundos", "30 segundos"])
+        self.interval_combo.addItems(["5 seconds", "10 seconds", "15 seconds", "30 seconds"])
         self.interval_combo.setFixedWidth(140)
         interval_row.addWidget(self.interval_combo)
         interval_row.addStretch()
         layout.addLayout(interval_row)
 
         if sys.platform == "win32":
-            self.auto_start_cb = QCheckBox("Iniciar automaticamente con Windows")
+            self.auto_start_cb = QCheckBox("Start automatically with Windows")
             layout.addWidget(self.auto_start_cb)
         else:
             self.auto_start_cb = None
 
-        self.pause_cb = QCheckBox("Pausar monitoreo")
+        self.pause_cb = QCheckBox("Pause monitoring")
         layout.addWidget(self.pause_cb)
 
         return group
@@ -155,7 +155,7 @@ class SettingsDialog(QDialog):
 
     def _add_folder(self):
         folder = QFileDialog.getExistingDirectory(
-            self, "Seleccionar carpeta a monitorear"
+            self, "Select folder to monitor"
         )
         if folder:
             existing = [self.folder_list.item(i).text() for i in range(self.folder_list.count())]

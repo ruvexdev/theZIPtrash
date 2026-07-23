@@ -3,13 +3,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def notificar(titulo, mensaje, app_name="theZIPtrash"):
+def notify(title, message, app_name="theZIPtrash"):
     try:
         from plyer import notification
 
         notification.notify(
-            title=titulo,
-            message=mensaje,
+            title=title,
+            message=message,
             app_name=app_name,
             timeout=5,
         )

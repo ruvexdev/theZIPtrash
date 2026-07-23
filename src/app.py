@@ -10,7 +10,7 @@ from src.watcher import WatcherThread
 from src.tray import SystemTray
 from src.ui.main_window import MainWindow
 from src.ui.styles import DARK_THEME
-from src.zipper import limpiar_trash
+from src.zipper import clean_trash
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,7 +29,7 @@ class App:
 
         self.config = Config()
 
-        eliminated, remaining = limpiar_trash(self.config)
+        eliminated, remaining = clean_trash(self.config)
         if eliminated:
             logger.info(f"Cleaned {len(eliminated)} ZIPs from previous sessions")
 
@@ -55,7 +55,7 @@ class App:
 
         self.tray.show_message(
             "theZIPtrash",
-            "Monitoreo de ZIPs activo. Doble clic en el icono para abrir.",
+            "ZIP monitoring active. Double-click the tray icon to open.",
         )
 
         return self.app.exec_()
@@ -65,8 +65,8 @@ class App:
         self.main_window.refresh_table()
         self.tray.update_count(count)
         self.tray.show_message(
-            "ZIP movido a la papelera",
-            f"{entry.get('name', 'Unknown')} movido correctamente.",
+            "ZIP moved to trash",
+            f"{entry.get('name', 'Unknown')} moved successfully.",
         )
 
     def _on_status_changed(self, status):

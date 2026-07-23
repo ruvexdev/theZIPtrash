@@ -2,7 +2,7 @@
 
 # 🗑️ theZIPtrash
 
-### Elimina automaticamente los ZIPs basura de tu PC
+### Automatically remove garbage ZIP files from your PC
 
 ![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&logo=python&logoColor=white)
@@ -12,30 +12,30 @@
 
 ---
 
-*Detecta ZIPs que ya han sido extraidos y los mueve automaticamente a una papelera. Mantene tus carpetas limpias sin esfuerzo.*
+*Detects ZIP files that have already been extracted and automatically moves them to a trash folder. Keep your folders clean effortlessly.*
 
 </div>
 
 ---
 
-## ✨ Caracteristicas
+## ✨ Features
 
-| Caracteristica | Descripcion |
+| Feature | Description |
 |:---|:---|
-| 🔍 **Deteccion automatica** | Escanea carpetas cada N segundos y detecta ZIPs ya extraidos |
-| 🗂️ **Papelera de ZIPs** | Los ZIPs "basura" se mueven a una carpeta segura, no se borran |
-| 🔔 **Notificaciones** | Alertas nativas del sistema cuando se detecta un ZIP basura |
-| ⚡ **Restauracion** | Restaura cualquier ZIP con un solo clic desde la interfaz |
-| 🧠 **Memoria de restauracion** | Los ZIPs restaurados no se vuelven a borrar automaticamente |
-| 🎨 **UI moderna** | Tema oscuro con acentos morados, diseno limpio y profesional |
-| 🖥️ **System tray** | Se ejecuta en segundo plano con icono en la bandeja del sistema |
-| 🔄 **Auto-start** | Opcion de iniciar automaticamente con Windows |
-| 🛠️ **Servicio Windows** | Opcionalmente se instala como servicio del sistema |
-| ⚙️ **Configuracion** | Carpetas personalizables, intervalo de escaneo ajustable |
+| 🔍 **Auto-detection** | Scans folders every N seconds and detects already-extracted ZIPs |
+| 🗂️ **ZIP trash** | Garbage ZIPs are moved to a safe folder, not deleted |
+| 🔔 **Notifications** | Native system alerts when a garbage ZIP is detected |
+| ⚡ **Restore** | Restore any ZIP with a single click from the interface |
+| 🧠 **Restore memory** | Restored ZIPs are never re-deleted automatically |
+| 🎨 **Modern UI** | Dark theme with purple accents, clean and professional design |
+| 🖥️ **System tray** | Runs in the background with a tray icon |
+| 🔄 **Auto-start** | Option to start automatically with Windows |
+| 🛠️ **Windows service** | Optionally installs as a system service |
+| ⚙️ **Configuration** | Customizable folders, adjustable scan interval |
 
 ---
 
-## 📸 Capturas
+## 📸 Screenshots
 
 <div align="center">
 
@@ -43,18 +43,18 @@
 ╔══════════════════════════════════════════════════╗
 ║  🗑️ theZIPtrash                                 ║
 ║                                                  ║
-║  ZIPs basura detectados y gestionados            ║
+║  Garbage ZIPs detected and managed               ║
 ║                                                  ║
 ║  ┌────────────────────────────────────────────┐  ║
-║  │ Nombre    │ Tamano  │ Fecha  │ Original    │  ║
+║  │ Name      │ Size    │ Date   │ Original    │  ║
 ║  ├───────────┼─────────┼────────┼─────────────┤  ║
 ║  │ Prueba.zip│ 3.2 MB  │ 23/07  │ Downloads   │  ║
 ║  │ App.zip   │ 15.7 MB │ 22/07  │ Desktop     │  ║
 ║  └────────────────────────────────────────────┘  ║
 ║                                                  ║
-║  [Restaurar]  [X Eliminar]                       ║
+║  [Restore]  [X Delete]                           ║
 ║                                                  ║
-║  Monitoreo: Activo    [Config] [Eliminar todo]   ║
+║  Monitoring: Active  [Settings] [Delete all]     ║
 ║                                                  ║
 ║       Made by: ruvexdev-official with opencode   ║
 ╚══════════════════════════════════════════════════╝
@@ -64,65 +64,65 @@
 
 ---
 
-## 🚀 Instalacion
+## 🚀 Installation
 
-### Opcion 1: Instalador (.exe)
+### Option 1: Installer (.exe)
 
-1. Descarga `theZIPtrash-installer.exe` desde [Releases](https://github.com/ruvexdev-official/theZIPtrash/releases)
-2. Ejecuta el instalador como administrador
-3. Sigue los pasos del asistente
-4. ¡Listo! theZIPtrash se ejecutara en segundo plano
+1. Download `theZIPtrash-installer.exe` from [Releases](https://github.com/ruvexdev-official/theZIPtrash/releases)
+2. Run the installer as administrator
+3. Follow the wizard steps
+4. Done! theZIPtrash will run in the background
 
-### Opcion 2: Instalador (.msi)
+### Option 2: Installer (.msi)
 
-1. Descarga `theZIPtrash.msi` desde [Releases](https://github.com/ruvexdev-official/theZIPtrash/releases)
-2. Ejecuta el instalador
-3. Se creara un acceso directo en el escritorio
+1. Download `theZIPtrash.msi` from [Releases](https://github.com/ruvexdev-official/theZIPtrash/releases)
+2. Run the installer
+3. A desktop shortcut will be created
 
-### Opcion 3: Ejecutar desde codigo fuente
+### Option 3: Run from source
 
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone https://github.com/ruvexdev-official/theZIPtrash.git
 cd theZIPtrash
 
-# Crear entorno virtual
+# Create virtual environment
 python -m venv venv
 venv\Scripts\activate
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 
-# Ejecutar
+# Run
 python main.py
 ```
 
 ---
 
-## 🛠️ Compilacion
+## 🛠️ Building
 
-### Requisitos previos
+### Prerequisites
 
 - Python 3.8+
-- [NSIS](https://nsis.sourceforge.io/) (para instalador .exe)
-- [WiX Toolset v7](https://wixtoolset.org/) (para instalador .msi)
+- [NSIS](https://nsis.sourceforge.io/) (for .exe installer)
+- [WiX Toolset v7](https://wixtoolset.org/) (for .msi installer)
 
-### Generar ejecutables
+### Generate executables
 
 ```bash
 python build.py
 ```
 
-Los ejecutables se generaran en la carpeta `dist/`.
+Executables will be generated in the `dist/` folder.
 
-### Generar instalador NSIS
+### Generate NSIS installer
 
 ```bash
 cd installer
 makensis theZIPtrash.nsi
 ```
 
-### Generar instalador MSI
+### Generate MSI installer
 
 ```bash
 cd installer
@@ -131,21 +131,21 @@ wix build theZIPtrash.wxs -d DistDir=..\dist -d ProjectDir=.. -o theZIPtrash.msi
 
 ---
 
-## ⚙️ Configuracion
+## ⚙️ Configuration
 
-La configuracion se almacena en:
+Configuration is stored in:
 
 ```
 %APPDATA%\theZIPtrash\config.json
 ```
 
-### Estructura de configuracion
+### Configuration structure
 
 ```json
 {
     "watched_folders": [
-        "C:\\Users\\TuUsuario\\Downloads",
-        "C:\\Users\\TuUsuario\\Desktop"
+        "C:\\Users\\YourUser\\Downloads",
+        "C:\\Users\\YourUser\\Desktop"
     ],
     "scan_interval": 10,
     "auto_start": false,
@@ -155,58 +155,58 @@ La configuracion se almacena en:
 }
 ```
 
-### Carpetas monitoreadas por defecto
+### Default monitored folders
 
-| Carpeta | Ubicacion |
+| Folder | Location |
 |:---|:---|
-| 📥 Descargas | `C:\Users\{user}\Downloads` |
-| 🖥️ Escritorio | `C:\Users\{user}\Desktop` |
+| 📥 Downloads | `C:\Users\{user}\Downloads` |
+| 🖥️ Desktop | `C:\Users\{user}\Desktop` |
 
-Puedes agregar o quitar carpetas desde **Configuracion** en la UI.
+You can add or remove folders from **Settings** in the UI.
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 theZIPtrash/
-├── main.py                  # Punto de entrada
-├── requirements.txt         # Dependencias
-├── build.py                 # Script de compilacion
+├── main.py                  # Entry point
+├── requirements.txt         # Dependencies
+├── build.py                 # Build script
 ├── assets/
-│   └── icon.ico             # Icono de la aplicacion
+│   └── icon.ico             # Application icon
 ├── src/
-│   ├── app.py               # Orquestador principal
-│   ├── config.py            # Gestion de configuracion
-│   ├── watcher.py           # Hilo de monitoreo (QThread)
-│   ├── zipper.py            # Logica de mover/restaurar ZIPs
-│   ├── notifications.py     # Notificaciones nativas (plyer)
-│   ├── tray.py              # Icono de bandeja del sistema
-│   ├── autostart.py         # Inicio automatico con Windows
-│   ├── service.py           # Servicio de Windows
+│   ├── app.py               # Main orchestrator
+│   ├── config.py            # Configuration management
+│   ├── watcher.py           # Monitoring thread (QThread)
+│   ├── zipper.py            # Move/restore ZIP logic
+│   ├── notifications.py     # Native notifications (plyer)
+│   ├── tray.py              # System tray icon
+│   ├── autostart.py         # Windows auto-start
+│   ├── service.py           # Windows service
 │   └── ui/
-│       ├── main_window.py   # Ventana principal
-│       ├── settings_dialog.py # Dialogo de configuracion
-│       └── styles.py        # Tema oscuro/morado (QSS)
+│       ├── main_window.py   # Main window
+│       ├── settings_dialog.py # Settings dialog
+│       └── styles.py        # Dark/purple theme (QSS)
 └── installer/
-    ├── theZIPtrash.nsi      # Script NSIS
-    └── theZIPtrash.wxs      # Script WiX
+    ├── theZIPtrash.nsi      # NSIS script
+    └── theZIPtrash.wxs      # WiX script
 ```
 
 ---
 
-## 📋 Servicio de Windows
+## 📋 Windows Service
 
-theZIPtrash puede ejecutarse como servicio de Windows en segundo plano sin necesidad de interfaz grafica.
+theZIPtrash can run as a Windows service in the background without a GUI.
 
-### Instalar servicio
+### Install service
 
 ```bash
 dist\theZIPtrash-service.exe install
 net start theZIPtrash
 ```
 
-### Desinstalar servicio
+### Uninstall service
 
 ```bash
 net stop theZIPtrash
@@ -215,19 +215,19 @@ dist\theZIPtrash-service.exe remove
 
 ---
 
-## 🔧 Dependencias
+## 🔧 Dependencies
 
-| Paquete | Version | Uso |
+| Package | Version | Usage |
 |:---|:---|:---|
-| [PyQt5](https://pypi.org/project/PyQt5/) | >=5.15 | Interfaz grafica |
-| [plyer](https://pypi.org/project/plyer/) | >=2.1 | Notificaciones nativas |
-| [pywin32](https://pypi.org/project/pywin32/) | >=306 | Servicio de Windows, auto-start |
+| [PyQt5](https://pypi.org/project/PyQt5/) | >=5.15 | GUI framework |
+| [plyer](https://pypi.org/project/plyer/) | >=2.1 | Native notifications |
+| [pywin32](https://pypi.org/project/pywin32/) | >=306 | Windows service, auto-start |
 
 ---
 
-## 📜 Licencia
+## 📜 License
 
-Este proyecto esta licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para mas detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ```
 MIT License - Copyright (c) 2026 ruvexdev-official
@@ -235,31 +235,31 @@ MIT License - Copyright (c) 2026 ruvexdev-official
 
 ---
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas!
+Contributions are welcome!
 
-1. Haz fork del repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Haz commit de tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
 ---
 
-## 🐛 Reportar errores
+## 🐛 Reporting Bugs
 
-Si encuentras un bug, por favor [abre un issue](https://github.com/ruvexdev-official/theZIPtrash/issues) con:
+If you find a bug, please [open an issue](https://github.com/ruvexdev-official/theZIPtrash/issues) with:
 
-- Descripcion del problema
-- Pasos para reproducirlo
-- Version del sistema operativo
-- Version de Python
+- Description of the problem
+- Steps to reproduce
+- Operating system version
+- Python version
 
 ---
 
 <div align="center">
 
-**Hecho con 💜 por [ruvexdev-official](https://github.com/ruvexdev-official)**
+**Made with 💜 by [ruvexdev-official](https://github.com/ruvexdev-official)**
 
 </div>

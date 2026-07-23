@@ -43,7 +43,7 @@ class SystemTray(QObject):
             icon = QIcon(QPixmap(_create_tray_icon_pixmap()))
 
         self.tray = QSystemTrayIcon(icon, QApplication.instance())
-        self.tray.setToolTip("theZIPtrash - Monitor de ZIPs")
+        self.tray.setToolTip("theZIPtrash - ZIP Monitor")
 
         self._build_menu()
         self.tray.activated.connect(self._on_activate)
@@ -72,25 +72,25 @@ class SystemTray(QObject):
             }
         """)
 
-        self.show_action = QAction("Abrir theZIPtrash")
+        self.show_action = QAction("Open theZIPtrash")
         self.show_action.triggered.connect(self.show_window.emit)
         menu.addAction(self.show_action)
 
         menu.addSeparator()
 
-        self.count_action = QAction("ZIPs en papelera: 0")
+        self.count_action = QAction("ZIPs in trash: 0")
         self.count_action.setEnabled(False)
         menu.addAction(self.count_action)
 
         menu.addSeparator()
 
-        self.pause_action = QAction("Pausar monitoreo")
+        self.pause_action = QAction("Pause monitoring")
         self.pause_action.triggered.connect(self._toggle_pause)
         menu.addAction(self.pause_action)
 
         menu.addSeparator()
 
-        quit_action = QAction("Salir")
+        quit_action = QAction("Quit")
         quit_action.triggered.connect(self.quit_app.emit)
         menu.addAction(quit_action)
 
@@ -104,20 +104,20 @@ class SystemTray(QObject):
         if self.config.monitoring_paused:
             self.config.monitoring_paused = False
             self.watcher.resume()
-            self.pause_action.setText("Pausar monitoreo")
+            self.pause_action.setText("Pause monitoring")
         else:
             self.config.monitoring_paused = True
             self.watcher.pause()
-            self.pause_action.setText("Reanudar monitoreo")
+            self.pause_action.setText("Resume monitoring")
 
     def update_count(self, count):
-        self.count_action.setText(f"ZIPs en papelera: {count}")
+        self.count_action.setText(f"ZIPs in trash: {count}")
 
     def update_pause_state(self):
         if self.config.monitoring_paused:
-            self.pause_action.setText("Reanudar monitoreo")
+            self.pause_action.setText("Resume monitoring")
         else:
-            self.pause_action.setText("Pausar monitoreo")
+            self.pause_action.setText("Pause monitoring")
 
     def show_message(self, title, message):
         self.tray.showMessage(title, message, QSystemTrayIcon.Information, 3000)

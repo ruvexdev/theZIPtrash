@@ -18,14 +18,13 @@ def _get_zip_size(zip_path):
         return 0
 
 
-def mover_a_trash(zip_path, trash_dir):
+def move_to_trash(zip_path, trash_dir):
     zip_path = Path(zip_path)
     trash_dir = Path(trash_dir)
 
     if not zip_path.exists() or not zip_path.suffix.lower() == ".zip":
         return None, "Not a valid ZIP file"
 
-    name = zip_path.stem
     dest = trash_dir / zip_path.name
 
     if dest.exists():
@@ -43,7 +42,7 @@ def mover_a_trash(zip_path, trash_dir):
         return None, str(e)
 
 
-def restaurar_zip(entry, config):
+def restore_zip(entry, config):
     trash_path = Path(entry["trash_path"])
     original_path = Path(entry["original_path"])
 
@@ -75,7 +74,7 @@ def restaurar_zip(entry, config):
         return False, str(e)
 
 
-def eliminar_permanente(trash_path):
+def delete_permanently(trash_path):
     trash_path = Path(trash_path)
     if not trash_path.exists():
         return True, None
@@ -90,7 +89,7 @@ def eliminar_permanente(trash_path):
         return False, str(e)
 
 
-def limpiar_trash(config):
+def clean_trash(config):
     eliminated = []
     remaining = []
     for entry in list(config.deleted_zips):
@@ -103,7 +102,7 @@ def limpiar_trash(config):
     return eliminated, remaining
 
 
-def detectar_zips_basura(folder_path):
+def detect_garbage_zips(folder_path):
     folder = Path(folder_path)
     if not folder.exists() or not folder.is_dir():
         return []
