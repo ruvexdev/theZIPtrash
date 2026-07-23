@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <Package Name="theZIPtrash"
+           Manufacturer="ruvexdev-official"
+           Version="1.0.0.1"
+           UpgradeCode="A1B2C3D4-E5F6-7890-ABCD-EF1234567890"
+           Scope="perMachine">
+
+    <SummaryInformation Description="theZIPtrash - Monitor de ZIPs basura" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of theZIPtrash is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="appicon" SourceFile="$(var.DistDir)\theZIPtrash.exe" />
+    <Property Id="ARPPRODUCTICON" Value="appicon" />
+
+    <Feature Id="ProductFeature" Title="theZIPtrash" Level="1" AllowAbsent="no">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="ServiceExecutable" />
+      <ComponentRef Id="LicenseFile" />
+      <ComponentRef Id="DesktopShortcut" />
+      <ComponentRef Id="StartMenuShortcuts" />
+    </Feature>
+
+    <Feature Id="ServiceFeature" Title="Servicio de Windows" Level="1" AllowAbsent="yes">
+      <ComponentRef Id="ServiceComponent" />
+    </Feature>
+
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLFOLDER" Name="theZIPtrash">
+        <Component Id="MainExecutable" Guid="23A18E52-BC1B-420D-B8B7-636E26462D29">
+          <File Id="theZIPtrashExe" Source="$(var.DistDir)\theZIPtrash.exe" KeyPath="yes" />
+        </Component>
+        <Component Id="ServiceExecutable" Guid="9297ADD0-6875-4ED6-959C-FF8D16D2AE14">
+          <File Id="theZIPtrashServiceExe" Source="$(var.DistDir)\theZIPtrash-service.exe" KeyPath="yes" />
+        </Component>
+        <Component Id="LicenseFile" Guid="E4A294D5-650E-4AB9-BE4C-0A68CCB65904">
+          <File Id="LICENSE" Source="$(var.ProjectDir)\LICENSE" KeyPath="yes" />
+        </Component>
+        <Component Id="ServiceComponent" Guid="1450B40A-EF30-4A71-BFF2-64A0CFF0D9E1">
+          <ServiceInstall Id="ZIPTrashServiceInstall"
+                          Name="theZIPtrash"
+                          DisplayName="theZIPtrash - ZIP Monitor Service"
+                          Description="Monitors folders and moves extracted ZIP files to trash."
+                          Start="auto"
+                          Type="ownProcess"
+                          ErrorControl="normal" />
+          <ServiceControl Id="ZIPTrashServiceControl"
+                          Name="theZIPtrash"
+                          Start="auto"
+                          Stop="both"
+                          Remove="uninstall"
+                          Wait="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="17D359C5-B430-4814-8181-E0EE0A400DAC">
+        <Shortcut Id="DesktopShortcut"
+                  Name="theZIPtrash"
+                  Description="theZIPtrash - Monitor de ZIPs"
+                  Target="[INSTALLFOLDER]theZIPtrash.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="appicon" />
+        <RegistryValue Root="HKCU" Key="Software\theZIPtrash" Name="desktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="theZIPtrash">
+        <Component Id="StartMenuShortcuts" Guid="37136390-22AB-43F4-B0C3-3B90D98CA36C">
+          <Shortcut Id="ApplicationStartMenuShortcut"
+                    Name="theZIPtrash"
+                    Description="theZIPtrash - Monitor de ZIPs"
+                    Target="[INSTALLFOLDER]theZIPtrash.exe"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="appicon" />
+          <Shortcut Id="UninstallShortcut"
+                    Name="Desinstalar theZIPtrash"
+                    Target="[ProductLocation]theZIPtrash.exe"
+                    Arguments="--uninstall" />
+          <RegistryValue Root="HKCU" Key="Software\theZIPtrash" Name="startMenuShortcut" Type="integer" Value="1" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+  </Package>
+
+</Wix>
