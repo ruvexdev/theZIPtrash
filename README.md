@@ -40,24 +40,8 @@
 <div align="center">
 
 ```
-╔══════════════════════════════════════════════════╗
-║  🗑️ theZIPtrash                                 ║
-║                                                  ║
-║  Garbage ZIPs detected and managed               ║
-║                                                  ║
-║  ┌────────────────────────────────────────────┐  ║
-║  │ Name      │ Size    │ Date   │ Original    │  ║
-║  ├───────────┼─────────┼────────┼─────────────┤  ║
-║  │ Prueba.zip│ 3.2 MB  │ 23/07  │ Downloads   │  ║
-║  │ App.zip   │ 15.7 MB │ 22/07  │ Desktop     │  ║
-║  └────────────────────────────────────────────┘  ║
-║                                                  ║
-║  [Restore]  [X Delete]                           ║
-║                                                  ║
-║  Monitoring: Active  [Settings] [Delete all]     ║
-║                                                  ║
-║       Made by: ruvexdev-official with opencode   ║
-╚══════════════════════════════════════════════════╝
+<img width="1041" height="735" alt="image" src="https://github.com/user-attachments/assets/80a7c19c-1117-4157-977f-90968caf7459" />
+
 ```
 
 </div>
