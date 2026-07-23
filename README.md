@@ -37,14 +37,12 @@
 
 ## 📸 Screenshots
 
-<div align="center">
 
-```
+
 <img width="1041" height="735" alt="image" src="https://github.com/user-attachments/assets/80a7c19c-1117-4157-977f-90968caf7459" />
 
-```
 
-</div>
+
 
 ---
 
